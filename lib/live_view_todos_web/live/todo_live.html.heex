@@ -1,0 +1,27 @@
+<div class="container max-w-lg px-2 py-10 mx-auto sm:px-0">
+    <h1 class="text-4xl font-extrabold uppercase">To-do's</h1>
+    <form action="#" phx-submit="add" class="mb-10">
+        <%= text_input :todo, :title, placeholder: "what do you want to get done", class: "rounded-md w-full my-4 border-0 shadow p-4" %>
+        <%= submit "Add To-do", phx_disable_with: "Adding..", class: "inline-flex uppercase items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
+    </form>
+    <ul role="list" class="space-y-3">
+        <%= for todo <- @todos do %>
+        <li class="px-4 py-0 overflow-hidden bg-white rounded-md shadow">
+            <div class="relative flex items-center justify-between py-4">
+                <div class="flex items-center justify-center gap-4 p-1 overflow-hidden">
+                    <%= checkbox(:todo, :done, phx_click: "toggle_done", phx_value_id: todo.id, value: todo.done,  class: "focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded") %>
+                    <h2 class="text-xl font-medium text-gray-600 truncate select-none flex-nowrap"><%= todo.title %></h2>            
+                </div>
+                <div class="flex items-center justify-center">
+                    <div phx-click="delete" phx-value-id={todo.id} class="flex flex-col items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                    </svg>
+                    <span class="text-xs text-gray-400">delete</span>
+                    </div>
+                </div>
+            </div>
+        </li>
+        <% end %>
+    </ul>
+</div>
